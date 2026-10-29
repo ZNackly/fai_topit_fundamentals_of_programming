@@ -98,7 +98,7 @@ work_type.
 
 ```mermaid
 flowchart TB
-    G["Глобальная: course нет"]
+    G["Глобальная: course = 'Python'"]
     O["outer: course = 'Вложенный курс'"]
     I["inner: nonlocal course"]
 
