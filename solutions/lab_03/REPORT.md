@@ -97,10 +97,13 @@ work_type.
 ### Схема областей видимости LEGB
 
 ```mermaid
-flowchart LR
-    L["L — Local<br/>x, tmp"] --> E["E — Enclosing<br/>counter (nonlocal)"]
-    E --> G["G — Global<br/>course (global)"]
-    G --> B["B — Builtins<br/>print, len"]
+flowchart TB
+    G["Глобальная: course нет"]
+    O["outer: course = 'Вложенный курс'"]
+    I["inner: nonlocal course"]
+
+    G --> O --> I
+    I -->|"меняет"| O
 ```
 
 Значение по умолчанию [] создаётся один раз в момент определения
