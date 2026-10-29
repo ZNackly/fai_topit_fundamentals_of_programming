@@ -1,5 +1,7 @@
 def arithmetic_mean(values: list[float]) -> float:
-    """Возвращает среднее арифметическое непустого списка."""
+    """Возвращает среднее арифметическое списка."""
+    if not values:
+        return 0.0
     return sum(values) / len(values)
 
 
@@ -8,10 +10,7 @@ def normalize_name(name: str) -> str:
     if not name or not name.strip():
         return ""
     parts = name.split()
-    correct = ""
-    for part in parts:
-        correct = correct.join(part.capitalize())
-    return correct
+    return " ".join(part.capitalize() for part in parts)
 
 
 def build_report(
@@ -42,7 +41,6 @@ def collect_tags(*tags: str, lowercase: bool = True) -> tuple[str, ...]:
     return tuple(seen)
 
 
-
 assert arithmetic_mean([2.0, 4.0, 6.0]) == 4.0
 assert arithmetic_mean([10]) == 10.0
 assert arithmetic_mean([]) == 0.0
@@ -62,7 +60,6 @@ assert collect_tags() == ()
 print("Все проверки пройдены.")
 
 
-
 print("среднее:", arithmetic_mean([1, 2, 3]))
 print("среднее по имени:", arithmetic_mean(values=[4, 5]))
 
@@ -75,10 +72,6 @@ print(build_report("Ivan", [5, 4, 3], precision=1, prefix="Средний бал
 print("теги:", collect_tags(" A ", "b", "A", "", lowercase=True))
 print("теги по имени:", collect_tags("X", "y", lowercase=False))
 
-
-
-scores = [5, 4, 3, 5]
-print("среднее через *:", arithmetic_mean(*scores))
 
 kwargs = {"precision": 1, "prefix": "Балл"}
 print("отчёт через **:", build_report("Maria", [5, 5, 4], **kwargs))
@@ -109,6 +102,7 @@ outer_result = outer()
 print("outer вернул:          ", outer_result)
 print("глобальный course после:", course)
 
+
 def add_result_broken(value, results=[]):
     results.append(value)
     return results
@@ -119,7 +113,6 @@ def add_result_fixed(value, results=None):
         results = []
     results.append(value)
     return results
-
 
 
 print("--- ошибочная версия ---")
@@ -147,14 +140,15 @@ def make_threshold_checker(threshold: int):
     return checker
 
 
-
 values = [3, 5, 7, 9]
+
 
 def double(x: int) -> int:
     return x * 2
 
-print("именованная double:", apply_to_results(double, values))
-print("lambda квадрат:", apply_to_results(lambda x: x * x, values))
+
+print("именованная:", apply_to_results(double, values))
+print("lambda:", apply_to_results(lambda x: x * x, values))
 
 pass_3 = make_threshold_checker(3)
 pass_5 = make_threshold_checker(5)
